@@ -112,8 +112,8 @@ services:
       dockerfile: Dockerfile_backend
     image: backend
     container_name: backend
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     networks:
       - default
     labels:

@@ -41,11 +41,11 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myhttpchallenge.acme.httpchallenge=true" # CERT RESOLVER INFO FOLLOWS ...
       - "--certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myhttpchallenge.acme.email=xxxxxxxxxxxxxxxxxxxxx"
+      - "--certificatesresolvers.myhttpchallenge.acme.email=sajidk25@gmail.com"
       - "--certificatesresolvers.myhttpchallenge.acme.storage=/letsencrypt/acme.json"
       - "--certificatesresolvers.myhttpchallenge2.acme.httpchallenge=true" # Add this line for the second resolver
       - "--certificatesresolvers.myhttpchallenge2.acme.httpchallenge.entrypoint=web" # Change the entrypoint to web
-      - "--certificatesresolvers.myhttpchallenge2.acme.email=xxxxxxxxxxxxxxxxxxxxx" # Change the email
+      - "--certificatesresolvers.myhttpchallenge2.acme.email=sajidk25@gmail.com" # Change the email
       - "--certificatesresolvers.myhttpchallenge2.acme.storage=/letsencrypt/acme2.json" # Change the storage path
 
         #      - "traefik.http.routers.wss.rule=Host(`ws.${HOST}`)"
@@ -57,7 +57,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.docker.network=this-net
-        - traefik.http.routers.stack-traefik.rule=Host(`xxxxxxxxxxxxxxxxxxxxxxxxxxxxx`) # changed this to my elastic ip
+        - traefik.http.routers.stack-traefik.rule=Host(`159.65.158.51`) # changed this to my elastic ip
         - traefik.http.routers.traefik.entrypoints=web
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.services.traefik.loadbalancer.server.port=80
@@ -91,7 +91,7 @@ services:
       - traefik.enable=true
       # Use the traefik-public network (declared below)
       - traefik.docker.network=this-net
-      - traefik.http.routers.frontend.rule=Host(`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`) && Path('/wss/chat/')
+      - traefik.http.routers.frontend.rule=Host(`front.t99ltd.info`) && Path('/wss/chat/')
       - traefik.http.routers.frontend.entrypoints=websecure
       - traefik.http.routers.frontend.tls.certresolver=myhttpchallenge
       # Define the port inside of the Docker service to use
@@ -100,7 +100,7 @@ services:
       - 8001:8001
     volumes:
       ## use the env file in this folder as the .env for the script
-      - /home/ec2-user/big_ui_system/front_end/frontend/.env:/.env
+      - ./front_end/frontend/.env:/.env
 
 
 
@@ -119,7 +119,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=this-net
-      - traefik.http.routers.backend.rule=Host(`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)
+      - traefik.http.routers.backend.rule=Host(`back.t99ltd.info`)
       - traefik.http.routers.backend.tls.certresolver=myhttpchallenge2
       - traefik.http.services.backend.loadbalancer.server.port=8000
     ports:
